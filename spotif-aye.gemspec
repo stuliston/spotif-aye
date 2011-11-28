@@ -4,12 +4,12 @@ require "spotif-aye/version"
 
 Gem::Specification.new do |s|
   s.name        = "spotif-aye"
-  s.version     = Spotif::Aye::VERSION
+  s.version     = SpotifAye::VERSION
   s.authors     = ["Stuart Liston"]
   s.email       = ["stuart.liston@gmail.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Wrapper for Spotify's Metadata API}
+  s.description = %q{Tries to provide a nicer interface to the metadata api provided by Spotify}
 
   s.rubyforge_project = "spotif-aye"
 
