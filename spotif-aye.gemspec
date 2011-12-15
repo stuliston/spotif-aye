@@ -11,6 +11,15 @@ Gem::Specification.new do |s|
   s.summary     = %q{Wrapper for Spotify's Metadata API}
   s.description = %q{Tries to provide a nicer interface to the metadata api provided by Spotify}
 
+   # Running dependencies
+  s.add_dependency "httparty", ">= 0.8.1"
+
+  # Development dependencies:
+  s.add_development_dependency "rspec", ">= 2.7.0"
+  s.add_development_dependency "i18n", ">= 0.6.0"
+  s.add_development_dependency "vcr", ">= 1.11.3"
+  s.add_development_dependency "fakeweb", ">= 1.3.0"
+
   s.rubyforge_project = "spotif-aye"
 
   s.files         = `git ls-files`.split("\n")
