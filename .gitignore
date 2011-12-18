@@ -3,3 +3,4 @@
 Gemfile.lock
 pkg/*
 .rvmrc
+spec/mock_responses/help.txt

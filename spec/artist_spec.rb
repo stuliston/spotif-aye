@@ -23,38 +23,23 @@ describe SpotifAye::Artist do
 
 	describe 'find' do
 
-		before :all do
-			body = 
-			<<-EOV
-			{
-				"artists" => {
-					"xmlns:opensearch" => "http://a9.com/-/spec/opensearch/1.1/", 
-					"xmlns" => "http://www.spotify.com/ns/music/1", 
-					"Query" => { 
-						"role" => "request", 
-						"startPage" => "1", 
-						"searchTerms" => "the stone roses" }, 
-					"totalResults" => "3", 
-					"startIndex" => "0", 
-					"itemsPerPage" => "100", 
-					"artist" => [
-						{ "href" => "spotify:artist:1lYT0A0LV5DUfxr6doRP3d", 
-							"name" => "The Stone Roses", 
-							"popularity" => "0.53524" }
-					]
-				}
-			}
-			EOV
+		describe 'single result response' do
 
-			FakeWeb.register_uri(:get, "http://ws.spotify.com/search/1/artist.json?q=foo", :body => body)
-		end
+			before :each do
+				stub_request(:get, "http://ws.spotify.com/search/1/artist.json?q=stone").to_return(
+					:status => 200, 
+					:body => File.new('spec/mock_responses/single_result.txt'), 
+					:headers => {})
+			end
 
-		it 'should exist' do
-			lambda { SpotifAye::Artist.find('The Stone Roses') }.should_not raise_error(NoMethodError)
-		end
+			it 'should exist' do
+				lambda { SpotifAye::Artist.find('stone') }.should_not raise_error(NoMethodError)
+			end
 
-		it 'should turn a single result into a single Artist array ' do
-      SpotifAye::Artist.find('foo').should == 'foo'
+			it 'should return an array' do
+	      SpotifAye::Artist.find('stone').class.should == Array
+			end
+
 		end
 
 	end

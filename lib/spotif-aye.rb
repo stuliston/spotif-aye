@@ -19,8 +19,7 @@ module SpotifAye
 		def self.find(name)
 	    response = get("/artist.json?q=#{name}")
 	    if response.success?
-	    	puts response.to_s.to_json
-	    	return parse_results(response['artists'])
+	    	return parse_results(JSON.parse(response)['artists'])
 	    else
 	      raise response.response
 	    end

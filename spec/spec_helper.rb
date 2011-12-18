@@ -1,5 +1,6 @@
 require 'spotif-aye'
-require 'fakeweb'
+require 'webmock/rspec'
+require 'json'
 
 RSpec.configure do |config|
   # some (optional) config here
