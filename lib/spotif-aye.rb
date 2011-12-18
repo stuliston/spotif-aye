@@ -19,18 +19,39 @@ module SpotifAye
 		def self.find(name)
 	    response = get("/artist.json?q=#{name}")
 	    if response.success?
-	    	return parse_results(JSON.parse(response)['artists'])
+	    	return ResultSet.new(response)
 	    else
 	      raise response.response
 	    end
 	  end
 
-	  private
+	end
 
-    def self.parse_results(results)
-    	artists = []
-    	results.each { |r| artists << self.new(r) }
-	  end
+	class ResultSet
+
+		attr_accessor :num_results, :limit, :offset, :query, :type, :page, :results
+
+		def initialize(response)
+			results = JSON.parse(response)
+			populate_info(results['info'])
+			populate_results(results['artists'])
+		end
+
+		private 
+
+		def populate_info(info)
+			self.num_results = info['num_results']
+			self.limit = info['limit']
+			self.offset = info['offset']
+			self.query = info['query']
+			self.type = info['type']
+			self.page = info['page']
+		end
+
+		def populate_results(artists)
+			self.results = []
+			artists.each { |a| self.results << Artist.new(a) }
+		end
 
 	end
 
