@@ -7,8 +7,8 @@ describe SpotifAye::Artist do
 		before :each do
 			stub_request(:get, "http://ws.spotify.com/search/1/artist.json?q=stone").to_return(
 				:status => 200, 
-				:body => File.new('spec/mock_responses/single_result.txt'),
-				:headers => {})
+				:body => File.new('spec/mock_responses/single_result.json'),
+				:headers => {'Content-Type' => 'application/json'})
 		end
 
 		it 'should return a result set' do
@@ -49,5 +49,4 @@ describe SpotifAye::Artist do
 			end
 		end
 	end
-
 end

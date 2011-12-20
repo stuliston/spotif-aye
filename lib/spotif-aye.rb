@@ -19,7 +19,7 @@ module SpotifAye
 		def self.find(name)
 	    response = get("/artist.json?q=#{name}")
 	    if response.success?
-	    	return ResultSet.new(response)
+	    	return ResultSet.new(response.parsed_response)
 	    else
 	      raise response.response
 	    end
@@ -30,8 +30,7 @@ module SpotifAye
 
 		attr_accessor :num_results, :limit, :offset, :query, :type, :page, :results
 
-		def initialize(response)
-			results = JSON.parse(response.parsed_response)
+		def initialize(results)
 			populate_info(results['info'])
 			populate_results(results['artists'])
 		end
