@@ -24,7 +24,6 @@ module SpotifAye
 	      raise response.response
 	    end
 	  end
-
 	end
 
 	class ResultSet
@@ -32,7 +31,7 @@ module SpotifAye
 		attr_accessor :num_results, :limit, :offset, :query, :type, :page, :results
 
 		def initialize(response)
-			results = JSON.parse(response)
+			results = JSON.parse(response.parsed_response)
 			populate_info(results['info'])
 			populate_results(results['artists'])
 		end
@@ -52,7 +51,6 @@ module SpotifAye
 			self.results = []
 			artists.each { |a| self.results << Artist.new(a) }
 		end
-
 	end
 
 end
